@@ -1,25 +1,50 @@
-Your magic universe
+The magic map
 
 Description
-Match-three is a game where players need to align combinations of three identical elements. Combinations include swapping elements of the adjacent cells on the playing field. Once the right combination aligns, it disappears, and new random elements are displayed in its place. The game continues until the required number of elements disappears.
-
-At this stage, you need to create a playing field for your future game using HTML and CSS.
-
-Put a status bar with the state of the game on the field; it will display the number of moves, creatures, and other game stats. Also, don't forget to include a map with cells where creatures will appear as the game progresses.
-
-
-For this project, please, use the following graphic materials: graphics.zip
-
+Adding 25 cells to the HTML file was rather boring, wasn't it? In this stage, we will do a little magic trick: let's automate the creation of map cells with a JS script and make our game more flexible and universal by adding a configuration object.
 
 Objectives
-To complete the task, you need to create an HTML page containing the following elements:
+Make sure you've removed all table tag contents from your page; your HTML file will look something like this:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fantastic Beings</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="board">
+    <div id="status-bar"></div>
+    <table id="map"></table>
+</div>
+</body>
+</html>
 
-Playing board — this is the root element that contains all other elements. Set a background image and make it fill up the entire height of the screen's viewport, with no padding on the sides. Use the board id for this item;
-Status bar — a panel for game stats. Locate it on top of the screen (without any top offset); it should occupy the entire screen width with a background image. The status bar height must be 10% of the width of the screen's visible area. Use the status-bar id for this item;
-Game map — a 5x5 table element with the ID map. The table should be centered horizontally on the screen. Set the height of the table to 60% of the viewport height, and ensure it remains square. Position the table with a vertical offset of 3% of the viewport height from the status bar;
-Game map cell — a square element; its width and height are adjusted to the map dimensions. Make the cell borders 1 pixel wide in rgb(103, 101, 168). The cell background should be of the same color as the border, only with a transparency of 40%. Use the cell class for this item.
-Tip: Remember about relative measurement units in CSS.
+Add a JS script to your page. It doesn't matter how you'll do it, but keep in mind that the amount of JS code will grow further on, so it makes sense to create a separate file for it.
+Implement a function with name window.renderMap that dynamically fills the table tag with the passed number of rows and columns. Each created cell, as in the previous stage, should have the cell class. The function must take 2 input parameters: rowsCount and colsCount with which you can set the dimensions of the map. An example of calling this function:
+window.renderMap = function(rowsCount, colsCount) {
+    // Your code
+}
 
-Example
-Example 1: game overlay
+// Call this function
+window.renderMap(rowsCount, colsCount);
+
+Once the HTML page is loaded, you need to call this method to draw the game field.
+Also, create a function to clear the game field. You can achieve this using methods like setting innerHTML to an empty string (innerHTML = "") or other DOM manipulation techniques you find suitable:
+window.clearMap = function() {
+    // Your code
+}
+
+window.clearMap();
+
+To make sure your method window.renderMap is flexible and versatile, try experimenting with different values for the map dimensions but leave 5x5 as the final size.
+Examples
+Example 1: 10x10 grid configuration
+
+Fantastic Beings and How to Match Them: 10x10 playing field
+
 (open img1 in this folder)
+
+Example 2: 3x3 configuration; the cell size adjusts automatically
+
+(open img2 in this folder)

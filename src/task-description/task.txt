@@ -1,50 +1,76 @@
-The magic map
+Looking for fantastic beings
 
 Description
-Adding 25 cells to the HTML file was rather boring, wasn't it? In this stage, we will do a little magic trick: let's automate the creation of map cells with a JS script and make our game more flexible and universal by adding a configuration object.
+It's time to put creatures on the map! During the game, we should have two basic scenarios when creatures appear:
+
+When the game starts;
+
+When creatures are aligned — in this case, no need to redraw the entire field, only fill in the empty cells.
+
+In what order should the creatures be arranged? Random can take care of that! Fill the map with random animals from the list of 5: Zouwu, Swooping, Salamander, Puffskein, and Kelpie :)
 
 Objectives
-Make sure you've removed all table tag contents from your page; your HTML file will look something like this:
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Fantastic Beings</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-<div id="board">
-    <div id="status-bar"></div>
-    <table id="map"></table>
-</div>
-</body>
-</html>
+Based on this graphic, create an array of possible creatures that can be put on the map (there are 5 of them);
 
-Add a JS script to your page. It doesn't matter how you'll do it, but keep in mind that the amount of JS code will grow further on, so it makes sense to create a separate file for it.
-Implement a function with name window.renderMap that dynamically fills the table tag with the passed number of rows and columns. Each created cell, as in the previous stage, should have the cell class. The function must take 2 input parameters: rowsCount and colsCount with which you can set the dimensions of the map. An example of calling this function:
-window.renderMap = function(rowsCount, colsCount) {
-    // Your code
-}
+Create a new method to randomly fill the map with creatures. The method should add creatures only to the empty cells of the map, ensuring that each cell can contain only one creature. You can use nested for loops or another method to iterate over the cells.
 
-// Call this function
-window.renderMap(rowsCount, colsCount);
+Make the creatures appear on the map immediately after the map appears on the screen.
 
-Once the HTML page is loaded, you need to call this method to draw the game field.
-Also, create a function to clear the game field. You can achieve this using methods like setting innerHTML to an empty string (innerHTML = "") or other DOM manipulation techniques you find suitable:
-window.clearMap = function() {
-    // Your code
-}
+Each cell must have a data-being attribute in which you need to write the name of the creature that lives in that cell- see the example for more details.
 
-window.clearMap();
+Each img inside the cell must have the data-coords attribute, in which you need to enter its coordinate in the xN_yM format - see the example for more details.
 
-To make sure your method window.renderMap is flexible and versatile, try experimenting with different values for the map dimensions but leave 5x5 as the final size.
+Write a window.redrawMap method that accepts an array of creatures as a parameter (the array size must be at least 3x3). You can use nested for loops to render the creatures onto the map based on the provided array. If the array is valid and the map renders correctly, return true. If the array is invalid (e.g., the wrong size or format), return false.
+
+You may use multidimensional arrays to represent the map and the position of creatures. Also, make sure the width and height of the table match the size of the longest row in the array and the number of rows. Use a nested for loop to iterate over each cell of the map.
+
 Examples
-Example 1: 10x10 grid configuration
+Example 1: map before adding creatures
 
-Fantastic Beings and How to Match Them: 10x10 playing field
+...
+<tr class="row">
+<td class="cell"></td>
+<td class="cell"></td>
+<td class="cell"></td>
+<td class="cell"></td>
+<td class="cell"></td>
+</tr>
+...
+
+map once the creatures have been added
+
+...
+<tr class="row">
+<td class="cell" data-being="kelpie">
+<img data-coords="x0_y0" src="images/kelpie.png">
+</td>
+<td class="cell" data-being="kelpie">
+<img data-coords="x1_y0" src="images/kelpie.png">
+</td>
+<td class="cell" data-being="puffskein">
+<img data-coords="x2_y0" src="images/puffskein.png">
+</td>
+<td class="cell" data-being="kelpie">
+<img data-coords="x3_y0" src="images/kelpie.png">
+</td>
+<td class="cell" data-being="swooping">
+<img data-coords="x4_y0" src="images/swooping.png">
+</td>
+</tr>
+...
+
+graphic representation of the game board
 
 (open img1 in this folder)
 
-Example 2: 3x3 configuration; the cell size adjusts automatically
+Example 2: filling the map using the method window.redrawMap
+
+window.redrawMap([
+    ['kelpie', 'puffskein', 'puffskein'],
+    ['swooping', 'zouwu', 'puffskein'],
+    ['kelpie', 'puffskein', 'zouwu']
+]);
+
+map once the creatures have been added by method above
 
 (open img2 in this folder)
